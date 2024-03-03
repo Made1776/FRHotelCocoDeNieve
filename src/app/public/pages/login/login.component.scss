@@ -1,0 +1,53 @@
+
+.main-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+}
+
+.main-container__assets,
+.main-container__form {
+  flex-grow: 1;
+  max-width: 50%;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+
+.main-container__assets {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+
+    .logo {
+      width: 60vh;
+    }
+  }
+}
+
+.main-container__form {
+  padding: 15px;
+  box-shadow: -10px 0 15px rgba(0, 0, 0, 0.1); /* Sombra en la izquierda */
+  background: #005f98;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .card {
+    min-width: 70%;
+
+  }
+}
+
+a {
+  color: #3f7aa0; /* Cambia el color según tu preferencia */
+  text-decoration: underline; /* Subraya el enlace */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el enlace */
+}
+
+

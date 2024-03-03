@@ -1,0 +1,223 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body mt-4">
+      <form [formGroup]="resourceForm">
+        <div class="row">
+          <!--Resource Type-->
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>Tipo de recurso</mat-label>
+              <mat-select formControlName="idTypeResource">
+                <mat-option
+                  [value]="typeResrc.idTypeResource"
+                  *ngFor="let typeResrc of listTypeResources"
+                >
+                  {{ typeResrc.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--name-->
+        <div class="row">
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="name"
+                class="form-control mb-4"
+                formControlName="name"
+              />
+              <label mdbLabel class="form-label" for="name">
+                Nombre del recurso <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+        <div class="row">
+          <!--Code Number-->
+          <div class="col-sm-6">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="codNumber"
+                class="form-control mb-4"
+                formControlName="codNumber"
+              />
+              <label mdbLabel class="form-label" for="codNumber">
+                Código del recurso <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+          <!--Capacity-->
+          <div class="col-sm-3">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="number"
+                id="capacity"
+                class="form-control mb-4"
+                formControlName="capacity"
+              />
+              <label mdbLabel class="form-label" for="capacity">
+                Capacidad
+              </label>
+            </mdb-form-control>
+          </div>
+          <!--Precio-->
+          <div class="col-sm-3">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="number"
+                id="price"
+                class="form-control mb-4"
+                formControlName="price"
+              />
+              <label mdbLabel class="form-label" for="price">
+                Precio <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+        <!--Location-->
+        <div class="row">
+          <!--Region-->
+          <div class="col">
+            <mat-form-field appearance="outline">
+              <mat-label>Ciudad donde se ubica el recurso</mat-label>
+              <mat-select formControlName="idRegion">
+                <mat-option
+                  [value]="region.idRegion"
+                  *ngFor="let region of listRegions"
+                >
+                  {{ region.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <!--place-->
+        <div class="row">
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="place"
+                class="form-control mb-4"
+                formControlName="place"
+              />
+              <label mdbLabel class="form-label" for="place">
+                Sector <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+
+        <div class="row">
+          <!--address-->
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="address"
+                class="form-control mb-4"
+                formControlName="address"
+              />
+              <label mdbLabel class="form-label" for="address">
+                Dirección <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+
+        <div class="row">
+          <!--floor-->
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="number"
+                id="floor"
+                class="form-control mb-4"
+                formControlName="floor"
+              />
+              <label mdbLabel class="form-label" for="floor">
+                # Piso del edificio <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+
+        <!--name-->
+        <div class="row">
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="description"
+                class="form-control mb-4"
+                formControlName="description"
+              />
+              <label mdbLabel class="form-label" for="description">
+                Descripción del recurso <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="image-upload" *ngIf="!selectedFile">
+              <label for="fileInput">Cargar imagen del recurso</label>
+              <input
+                id="fileInput"
+                type="file"
+                (change)="onFileSelected($event)"
+              />
+            </div>
+            <div *ngIf="selectedFile" class="change_image">
+              <img [src]="pathImage" alt="Vista previa del archivo" />
+              <p>{{ selectedFileName }}</p>
+              <button class="btn btn-warning mb-4" (click)="clearFile()">
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <span *ngIf="resourceForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger btn-lg" (click)="close()">
+        CANCELAR
+      </button>
+      <button
+        type="button"
+        class="btn btn-warning btn-lg"
+        [disabled]="resourceForm.invalid"
+        (click)="save()"
+      >
+        GUARDAR
+      </button>
+    </div>
+  </div>
+</div>
+

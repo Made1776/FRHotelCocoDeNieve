@@ -1,0 +1,47 @@
+.register-button{
+    button{
+        font-weight: 600;
+    }
+
+}
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+    .far:hover{
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 18px;
+        color: black;
+    }
+  }
+  
+  .mat-elevation-z8,
+  .mat-mdc-elevation-specific.mat-elevation-z8 {
+    box-shadow: none;
+  }
+  .mat-mdc-header-row {
+    font-weight: var(--mat-table-header-headline-weight, 600);
+  }
+  .mat-mdc-header-cell{
+    text-align: center;
+  }
+  .search-input {
+    width: 40vw;
+    margin-bottom: 20px;
+  }
+  
+  table {
+  
+    .mat-mdc-header-cell {
+      border-bottom-color: black;
+      font-size: 12px;
+    }
+    .mat-mdc-cell {
+      text-align: center;
+      font-size: 12px;
+    }
+  }

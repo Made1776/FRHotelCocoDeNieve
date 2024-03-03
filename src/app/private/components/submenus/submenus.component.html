@@ -1,0 +1,17 @@
+<h2>{{parentMenu.label}}</h2>
+<br>
+<div class="fluid-container my-3">
+  <div class="row card-container">
+    <div *ngFor="let submenu of submenus; let i = index" class="col-sm-4 my-2">
+      <a [routerLink]="parentMenu.path + submenu.path">
+        <div class="card">
+          <div class="card-body text-center">
+            <i class="fas pe-3 my-2" [style.color]="colores[i]" style="font-size: 2rem;" [class]="submenu.icon"></i>
+            <h3 class="card-title my-4">{{ submenu.label }}</h3>
+            <p class="card-text">{{ submenu.description }}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

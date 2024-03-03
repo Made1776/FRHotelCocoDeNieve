@@ -1,0 +1,64 @@
+<div class="header">
+  <div class="nav">
+    <div class="img-container">
+      <img src="assets/img/logo-white-netbooking.svg" alt="">
+    </div>
+    <div>
+      <button class="button" (click)="onLogin()">
+        <i class="fas fa-user-circle pe-2 fa-xl text-white"></i>
+        Iniciar Sesión
+      </button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-white pb-3">Acceso 24/7</h2>
+        <p class="text-white fs-5">
+          Reserva tus habitcación en cualquier momento del día.
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-white pb-3">Parqueadero</h2>
+        <p class="text-white fs-5">
+          Ofrecemos un parqueadero por habitcación
+        </p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-white pb-3">Intalaciones</h2>
+        <p class="text-white fs-5">Contamos con áreas verdes, juegos para niños, piscina, hidromasaje, sauna y mucho más</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-white pb-3">Realiza el pago desde casa</h2>
+        <p class="text-white fs-5">
+          Puedes realizar el pago a travez de Paypal</p>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end px-4">
+    <a routerLink="auth/login" class="text-white fs-4 fw-semibold">
+      ¡Reserva ahora mismo!
+      <i class="fas fa-arrow-right ps-2 fa-lg text-white"></i>
+    </a>
+  </div>
+</div>
+<h1 class="text-center pt-5 mt-3 pb-2">Nuestras instalaciones:</h1>
+<div class="main-container my-5">
+  <div class="main-container__video mx-5">
+    <video
+      id="localVideo"
+      [style.width.px]="800"
+    >
+      <source
+        src="../../../../assets/img/Y2meta.app - 10 Segundos.mp4"
+        type="video/mp4"
+      />
+    </video>
+  </div>
+</div>

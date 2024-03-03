@@ -1,0 +1,121 @@
+
+    <div class="modal-content">
+      <div class="modal-header justify-content-center">
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body mx-4">
+        <form [formGroup]="menuForm">
+          <span *ngIf="menuForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+            <div class="row mt-2">
+                <!--label-->
+                <div class="col-sm-7">
+                <mdb-form-control>
+                    <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="label"
+                    class="form-control mb-4"
+                    formControlName="label"
+                    />
+                    <label mdbLabel class="form-label" for="label">
+                    Etiqueta <span class="text-danger">*</span>
+                    </label>
+                </mdb-form-control>
+                </div>
+                <!--order-->
+                <div class="col-sm-5">
+                <mdb-form-control>
+                    <input
+                    mdbInput
+                    mdbValidate
+                    type="number"
+                    id="order"
+                    class="form-control mb-4"
+                    formControlName="order"
+                    min="1"
+                    max="200"
+                    mdbTooltip="Rango: 1 - 200"
+                    inputValidation="entero"
+                    />
+                    <label mdbLabel class="form-label" for="order">
+                    Orden <span class="text-danger">*</span>
+                    </label>
+                </mdb-form-control>
+                </div>
+            </div>
+            <div class="row" >
+                <!--url-->
+                <div class="col">
+                <mdb-form-control>
+                    <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="url"
+                    class="form-control mb-4"
+                    formControlName="url"
+                    />
+                    <label mdbLabel class="form-label" for="url">
+                    URL <span class="text-danger">*</span>
+                    </label>
+                </mdb-form-control>
+                </div>
+            </div>
+            <div class="row">
+                <!--Description-->
+                <div class="col">
+                <mdb-form-control>
+                    <input
+                    mdbInput
+                    mdbValidate
+                    type="text"
+                    id="description"
+                    class="form-control mb-4"
+                    formControlName="description"
+                    />
+                    <label mdbLabel class="form-label" for="description">
+                    Descripción <span class="text-danger">*</span>
+                    </label>
+                </mdb-form-control>
+                </div>
+            </div>
+            <div class="row">
+              <!--icon-->
+              <div class="col">
+              <mdb-form-control>
+                  <input
+                  mdbInput
+                  mdbValidate
+                  type="text"
+                  id="icon"
+                  class="form-control mb-4"
+                  formControlName="icon"
+                  placeholder="fa-home"
+                  />
+                  <label mdbLabel class="form-label" for="icon">
+                  Ícono <span class="text-danger">*</span>
+                  </label>
+              </mdb-form-control>
+              </div>
+          </div>
+            
+            <div class="action mt-3 mb-2">
+              <button type="button" class="btn btn-danger btn-lg" (click)="onClose()">
+                CANCELAR
+              </button>
+              <button
+                type="button"
+                class="btn btn-warning btn-lg"
+                [disabled]="menuForm.invalid"
+                (click)="onSave()"
+              >
+                GUARDAR
+              </button>
+            </div>
+            
+        </form>
+        
+    </div>
+
+</div>

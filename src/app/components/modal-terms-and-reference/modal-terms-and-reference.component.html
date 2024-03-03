@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+  <mat-tab-group color="warn">
+    <mat-tab label="First">
+      <ng-template mat-tab-label>
+        <i class="fa fa-play-circle pe-2"></i>
+        Video de tutorial
+      </ng-template>
+      <div class="row my-3">
+        <div>
+          <p class="text-muted"><i class="fas fa-info-circle text-muted pe-2"></i>Los términos y condiciones se
+            habilitará en <span class="time-left">{{ timeLeft | number: '1.0-0' }}</span> segundos</p>
+        </div>
+        <div class="col-12 video-container">
+          <video
+            id="localVideo"
+            [width]="videoWidth"
+            [height]="videoHeight"
+            (timeupdate)="updateTime($event)"
+            autoplay
+            controls
+          >
+            <source
+              src="../../../../assets/img/Y2meta.app - 10 Segundos.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Second" [disabled]="!isMinimumPlayTime">
+      <ng-template mat-tab-label>
+        <i class="fa fa-file pe-2"></i>
+        Términos y condiciones
+      </ng-template>
+      <div class="m-3">
+
+        <h3 class="text-center">Términos y condiciones</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          voluptatum, quibusdam, quia, quae voluptates voluptatem quos
+          voluptatibus quod doloribus quas doloremque. Quisquam voluptatum,
+          quibusdam, quia, quae voluptates voluptatem quos voluptatibus quod
+          doloribus quas doloremque.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          voluptatum, quibusdam, quia, quae voluptates voluptatem quos
+          voluptatibus quod doloribus quas doloremque. Quisquam voluptatum,
+          quibusdam, quia, quae voluptates voluptatem quos voluptatibus quod
+          doloribus quas doloremque.
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
+          voluptatum, quibusdam, quia, quae voluptates voluptatem quos
+          voluptatibus quod doloribus quas doloremque. Quisquam voluptatum,
+          quibusdam, quia, quae voluptates voluptatem quos voluptatibus quod
+          doloribus quas doloremque.
+        </p>
+        <h5>¿Aceptas los términos y condiciones?</h5>
+        <div class="form-check my-4">
+          <input
+            mdbCheckbox
+            class="form-check-input"
+            type="checkbox"
+            value="true"
+            id="CheckTerm"
+            [checked]="isCheckTerms"
+            (change)="checkTerms($event)"
+          />
+          <label class="form-check-label" for="CheckTerm">
+            Acepto los términos y condiciones
+          </label>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="onRegister()"
+            [disabled]="!isCheckTerms"
+          >
+            Registrar cuenta
+          </button>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+<div class="modal-footer">
+</div>

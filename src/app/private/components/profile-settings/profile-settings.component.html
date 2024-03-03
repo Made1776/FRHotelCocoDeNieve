@@ -1,0 +1,423 @@
+<ng-container *ngIf="!isEditProfile && !isPasswordChange">
+  <ng-container *ngTemplateOutlet="seeProfile"></ng-container>
+</ng-container>
+
+<ng-container *ngIf="isEditProfile">
+  <ng-container *ngTemplateOutlet="editProfile"></ng-container>
+</ng-container>
+
+<ng-container *ngIf="isPasswordChange">
+  <ng-container *ngTemplateOutlet="changePassword"></ng-container>
+</ng-container>
+
+<ng-template #seeProfile>
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <div class="card text-center">
+        <div class="profile-img my-5">
+          <img
+            src="assets/img/images.jpg"
+            [style.width.px]="130"
+            class="rounded-circle"
+            alt=""
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ username }}</h5>
+          <p class="card-text">{{ userEmail }}</p>
+          <div class="actions">
+            <button type="button" class="btn btn-warning" (click)="onEdit()">
+              Editar perfil
+            </button>
+            <!-- <button
+              type="button"
+              class="btn btn-warning"
+              (click)="onChangePassword()"
+            >
+              Cambiar Contraseña
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card px-3">
+        <div class="card-body">
+          <h3 class="card-title mb-4 mt-4 mx-3">Datos Personales</h3>
+          <label class="rol mx-3">{{ currentRol }}</label>
+          <div class="row mt-2">
+            <div class="col-6">
+              <div class="d-flex personalData">
+                <label class="mx-3">Nombre:</label>
+                <p>{{ user?.personalData?.name }}</p>
+              </div>
+              <div class="d-flex personalData">
+                <label class="mx-3">Apellido:</label>
+                <p>{{ user?.personalData?.lastname }}</p>
+              </div>
+              <div class="d-flex personalData">
+                <label class="mx-3">Empresa:</label>
+                <p>{{ user?.personalData?.company }}</p>
+              </div>
+              <div class="d-flex personalData">
+                <label class="mx-3">Correo Institucional:</label>
+                <p>{{ user?.personalData?.email }}</p>
+              </div>
+            </div>
+
+            <div class="col-6">
+              <div class="d-flex personalData">
+                <label class="mx-3">Celular:</label>
+                <p>{{ user?.personalData?.cellphone }}</p>
+              </div>
+              <div class="d-flex personalData">
+                <label class="mx-3">Dirección:</label>
+                <p>{{ user?.personalData?.address }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #editProfile>
+  <div class="d-flex justify-content-center">
+    <div class="card editProfileCard w-75 m-3">
+      <div class="card-body">
+        <div class="card-title text-center">
+          <h1>Editar Perfil</h1>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="profile-img m-5">
+            <img
+              src="assets/img/images.jpg"
+              [style.width.px]="180"
+              class="rounded-circle"
+              title="Foto de perfil"
+              *ngIf="isPhotoUploaded"
+            />
+            <img
+              src="assets/icons/user-icon.png"
+              [style.width.px]="180"
+              class="rounded-circle"
+              title="Sin foto de perfil"
+              *ngIf="!isPhotoUploaded"
+            />
+          </div>
+
+          <div class="editProfileBtn">
+            <button class="btn btn-warning" [matMenuTriggerFor]="menu">
+              <i class="far fa-edit"></i>
+              Editar
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before" class="container">
+              <button class="menu-item" (click)="onUploadPhoto()">
+                <i class="fas fa-upload"></i>
+                Subir foto
+              </button>
+              <button class="menu-item" (click)="onDeletePhoto()">
+                <i class="far fa-trash-alt"></i>
+                Eliminar foto
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+
+        <form [formGroup]="profileForm">
+          <!-- 2 column grid layout with text inputs for the first and last names -->
+          <div class="row mb-4">
+            <div class="col">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  type="text"
+                  id="firstname"
+                  class="form-control"
+                  formControlName="firstName"
+                />
+                <label mdbLabel class="form-label" for="firstname"
+                  >Nombres <span class="text-danger">*</span></label
+                >
+              </mdb-form-control>
+            </div>
+            <div class="col">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  type="text"
+                  id="lastname"
+                  class="form-control"
+                  formControlName="lastName"
+                />
+                <label mdbLabel class="form-label" for="lastname"
+                  >Apellidos <span class="text-danger">*</span></label
+                >
+              </mdb-form-control>
+            </div>
+          </div>
+
+          <!-- Text input -->
+          <mdb-form-control class="mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="company"
+              class="form-control"
+              formControlName="company"
+            />
+            <label mdbLabel class="form-label" for="company"
+              >Nombre de la empresa <span class="text-danger">*</span></label
+            >
+          </mdb-form-control>
+
+          <!-- Text input -->
+          <mdb-form-control class="mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="address"
+              class="form-control"
+              formControlName="address"
+            />
+            <label mdbLabel class="form-label" for="address"
+              >Dirección <span class="text-danger">*</span></label
+            >
+          </mdb-form-control>
+
+          <!-- Email input -->
+          <mdb-form-control class="mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              type="email"
+              id="mail"
+              class="form-control"
+              formControlName="mail"
+              placeholder="Ej. usuario@netlife.net.ec"
+            />
+            <label mdbLabel class="form-label" for="mail"
+              >Correo Institucional <span class="text-danger">*</span></label
+            >
+          </mdb-form-control>
+
+          <!-- cellphone -->
+          <mdb-form-control class="form-outline mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="cellphone"
+              class="form-control"
+              formControlName="cellphone"
+            />
+            <label mdbLabel class="form-label" for="cellphone"
+              >Celular <span class="text-danger">*</span></label
+            >
+          </mdb-form-control>
+
+          <!-- Submit button -->
+          <div class="actions">
+            <button
+              mdbRipple
+              type="button"
+              class="btn btn-warning"
+              [disabled]="profileForm.invalid"
+              (click)="onSave()"
+            >
+              Guardar
+            </button>
+            <button
+              mdbRipple
+              type="button"
+              class="btn btn-danger"
+              (click)="onCancel()"
+            >
+              Cancelar
+            </button>
+          </div>
+          <span
+            *ngIf="profileForm.invalid"
+            class="text-muted text-center pt-3"
+            [style.font-size.px]="10"
+          >
+            Para poder continuar llene todos los campos obligatorios (*)
+          </span>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #changePassword>
+  <div class="d-flex justify-content-center">
+    <div class="card changePasswordCard w-75 m-3">
+      <div class="card-body">
+        <div class="card-title text-center mb-5">
+          <h1>Actualización de Contraseña</h1>
+        </div>
+
+        <form [formGroup]="passwordForm">
+          <!-- Current password -->
+          <mdb-form-control class="mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              [type]="
+                passwordVisibility['showCurrentPassword'] ? 'text' : 'password'
+              "
+              id="currentPassword"
+              class="form-control"
+              formControlName="currentPassword"
+            />
+            <label mdbLabel class="form-label" for="currentPassword">
+              Contraseña actual <span class="text-danger">*</span></label
+            >
+            <span
+              ><i
+                class="fa eye"
+                [ngClass]="
+                  passwordVisibility['showCurrentPassword']
+                    ? 'fa-eye-slash'
+                    : 'fa-eye'
+                "
+                (click)="togglePasswordVisibility('Current')"
+              ></i
+            ></span>
+          </mdb-form-control>
+
+          <!-- new password -->
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              [type]="
+                passwordVisibility['showNewPassword'] ? 'text' : 'password'
+              "
+              id="newPassword"
+              class="form-control"
+              formControlName="newPassword"
+            />
+            <label mdbLabel class="form-label" for="newPassword">
+              Contraseña nueva <span class="text-danger">*</span></label
+            >
+            <span
+              ><i
+                class="fa eye"
+                [ngClass]="
+                  passwordVisibility['showNewPassword']
+                    ? 'fa-eye-slash'
+                    : 'fa-eye'
+                "
+                (click)="togglePasswordVisibility('New')"
+              ></i
+            ></span>
+          </mdb-form-control>
+          <div class="progress mb-4" [style.height.px]="7">
+            <div
+              class="progress-bar"
+              [style.width.%]="getProgress()"
+              [ngClass]="{
+                'bg-danger': getProgress() < 25,
+                'bg-warning': getProgress() >= 25 && getProgress() < 50,
+                'bg-info': getProgress() >= 50 && getProgress() < 75,
+                'bg-primary': getProgress() >= 75 && getProgress() < 90,
+                'bg-success': getProgress() >= 90
+              }"
+            >
+              <!-- {{ getProgress() }}% -->
+            </div>
+          </div>
+          <div
+            *ngIf="passwordForm.get('newPassword')?.invalid"
+            class="alert alert-danger"
+          >
+            <div *ngIf="passwordForm.get('newPassword')?.hasError('required')">
+              La contraseña es obligatoria.
+            </div>
+            <div *ngIf="passwordForm.get('newPassword')?.hasError('minlength')">
+              La contraseña debe tener al menos 10 caracteres.
+            </div>
+            <div *ngIf="!passwordHasUpperCase()">
+              La contraseña debe contener al menos una mayúscula.
+            </div>
+            <div *ngIf="!passwordHasLowerCase()">
+              La contraseña debe contener al menos una minúscula.
+            </div>
+            <div *ngIf="!passwordHasNumber()">
+              La contraseña debe contener al menos un número.
+            </div>
+            <div *ngIf="!passwordHasSpecialChar()">
+              La contraseña debe contener al menos un carácter especial.
+            </div>
+          </div>
+
+          <!-- confirm new password -->
+          <mdb-form-control class="mb-4">
+            <input
+              mdbInput
+              mdbValidate
+              [type]="
+                passwordVisibility['showConfirmPassword'] ? 'text' : 'password'
+              "
+              id="confirmPassword"
+              class="form-control"
+              formControlName="confirmPassword"
+            />
+            <label mdbLabel class="form-label" for="confirmPassword">
+              Confirmación contraseña nueva
+              <span class="text-danger">*</span></label
+            >
+            <span
+              ><i
+                class="fa eye"
+                [ngClass]="
+                  passwordVisibility['showConfirmPassword']
+                    ? 'fa-eye-slash'
+                    : 'fa-eye'
+                "
+                (click)="togglePasswordVisibility('Confirm')"
+              ></i
+            ></span>
+          </mdb-form-control>
+
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              passwordForm.get('confirmPassword')?.hasError('mismatch') &&
+              passwordForm.get('confirmPassword')?.touched
+            "
+          >
+            Las contraseñas no coinciden.
+          </div>
+
+          <div class="actions mt-5">
+            <button
+              mdbRipple
+              type="button"
+              class="btn btn-warning"
+              [disabled]="passwordForm.invalid"
+              (click)="onSavePassword()"
+            >
+              Guardar
+            </button>
+            <button
+              mdbRipple
+              type="button"
+              class="btn btn-danger"
+              (click)="onCancel()"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>

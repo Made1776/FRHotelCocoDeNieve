@@ -1,0 +1,73 @@
+<mat-drawer-container class="main-container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side" [opened]="true">
+    <img
+      src="assets/img/logo-netbookin.svg"
+      [style.width.px]="150"
+      [style.height.px]="30"
+      alt=""
+    />
+
+    <hr class="hr" />
+    <div class="menu">
+      <a
+        class="menu__item"
+        routerLinkActive="active"
+        [style.width.px]="150"
+        routerLink="home"
+      >
+        <div class="d-flex justify-content-start align-items-center py-1 ps-2">
+          <i class="fas pe-3 fa-home"></i>
+          <span> Inicio</span>
+        </div>
+      </a>
+
+      <ng-container *ngIf="isAdmin">
+        <ng-container *ngTemplateOutlet="admin"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!isAdmin">
+        <ng-container *ngTemplateOutlet="user"></ng-container>
+      </ng-container>
+
+      <ng-template #admin>
+        <a
+          class="menu__item"
+          routerLinkActive="active"
+          [style.width.px]="150"
+          *ngFor="let menu of listMenus"
+          [routerLink]="'submenu/' + menu.idMenu"
+        >
+          <div
+            class="d-flex justify-content-start align-items-center py-1 ps-2"
+          >
+            <i class="fas pe-3" [ngClass]="menu.icon"></i>
+            <span> {{ menu.label }}</span>
+          </div>
+        </a>
+      </ng-template>
+
+      <ng-template #user>
+        <a
+          class="menu__item"
+          routerLinkActive="active"
+          [style.width.px]="150"
+          *ngFor="let submenu of submenus"
+          [routerLink]="'/user' + submenu.path"
+        >
+          <div
+            class="d-flex justify-content-start align-items-center py-1 ps-2"
+          >
+            <i class="fas pe-3" [ngClass]="submenu.icon"></i>
+            <span> {{ submenu.label }}</span>
+          </div>
+        </a>
+      </ng-template>
+    </div>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <app-nav (toggleSideNav)="drawer.toggle()"></app-nav>
+    <div class="py-4 px-5">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-drawer-container>

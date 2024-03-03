@@ -1,0 +1,20 @@
+/* Welcome */
+.welcome {
+    text-align: center;
+    padding: 20px;
+}
+
+.card{
+  --mdb-card-box-shadow: none;
+  img{
+    width: 6rem;
+    height: 6rem;
+    margin-bottom: 10px;
+  }
+}
+
+.carousel-inner{
+  img{
+    height: 700px;
+  }
+}

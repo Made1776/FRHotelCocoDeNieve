@@ -1,0 +1,173 @@
+<div class="container">
+    <div class="left">
+      <div class="calendar">
+        <div class="month">
+          <i class="fa fa-angle-left prev" (click)="prevMonth()"></i>
+          <div class="date">{{ topDate }}</div>
+          <i class="fa fa-angle-right next" (click)="nextMonth()"></i>
+        </div>
+        <div class="weekdays">
+          <div>Dom</div>
+          <div>Lun</div>
+          <div>Mar</div>
+          <div>Mie</div>
+          <div>Jue</div>
+          <div>Vie</div>
+          <div>Sab</div>
+        </div>
+        <div class="days" #daysContainer>
+          <div
+            class="day prev-date"
+            *ngFor="let prevDay of prevDays"
+            (click)="setActiveDay($event, prevDay)"
+          >
+            {{ prevDay }}
+          </div>
+          <div
+            class="day"
+            *ngFor="let day of days"
+            (click)="setActiveDay($event, day)"
+            [ngClass]="{
+              today: isToday && day == day_today,
+              event: isEvent && event_days.includes(day),
+              active: isEvent && event_days.includes(day) && day == day_today
+            }"
+          >
+            {{ day }}
+          </div>
+          <div
+            class="day next-date"
+            *ngFor="let nextDay of nextDays"
+            (click)="setActiveDay($event, nextDay)"
+          >
+            {{ nextDay }}
+          </div>
+        </div>
+        <div class="goto-today">
+          <div class="goto">
+            <input
+              type="text"
+              placeholder="mm/yyyy"
+              [(ngModel)]="dateInput"
+              class="date-input"
+              (input)="onInput($event)"
+              (keydown)="onKeyDown($event)"
+              (keyup.enter)="goToDate()"
+              maxlength="7"
+            />
+            <button class="goto-btn" (click)="goToDate()">Ir</button>
+          </div>
+          <button class="today-btn" (click)="goToToday()">Hoy</button>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="invalidDate">
+          <span>
+            <i class="fas fa-exclamation-circle mb-1"></i>
+            Ingrese una fecha válida
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="today-date">
+        <div class="event-day">{{ event_day }}</div>
+        <div class="event-date">{{ event_date }}</div>
+      </div>
+      <div class="events">
+        <mdb-accordion [borderless]="true">
+          <mdb-accordion-item class="event" *ngFor="let event of eventDetails">
+            <ng-template mdbAccordionItemHeader>
+              <div class="title">
+                <i class="fas fa-circle"></i>
+                <h3 class="event-title">{{ event.title }}</h3>
+              </div>
+              <div class="event-time">
+                {{ event.startTime }} - {{ event.endTime }}
+              </div>
+            </ng-template>
+            <ng-template mdbAccordionItemBody>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="event-sub-title">
+                    {{ event.nameResource}}
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="event-price">
+                     {{ event.price ? (event.price | currency: 'USD') : 'GRATIS'}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="event-typeResource">
+                    {{ event.typeResource | uppercase}}
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col">
+                  <div class="event-label">CAPACIDAD:</div>
+                  <div class="event-capacity">{{ event.capacity }}</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="event-label">ESTADO:</div>
+                  <div class="event-data">{{ event.status | uppercase}}</div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="event-time-duration">
+                    <b>DE: </b> {{ event.startTime }} <b>A: </b> {{ event.endTime}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="event-label">CIUDAD:</div>
+                  <div class="event-data">{{ event.city.toString() | uppercase}} </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="event-label">SECTOR:</div>
+                  <div class="event-data"> {{ event.place | uppercase}} </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="event-label">DIRECCIÓN: </div>
+                  <div class="event-address"> {{ event.address }} </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="event-label">NÚMERO DE PISO DONDE SE UBICA EL RECURSO: </div>
+                  <div class="event-floor"> {{ event.floor }} </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="event-label">RESERVADO POR: </div>
+                  <div class="event-floor"> {{ event.username }} </div>
+                </div>
+              </div>
+              <!-- <div class="acciones">
+                <button class="btn btn-warning">Editar Reserva</button>
+                <button class="btn btn-danger">Cancelar Reserva</button>
+              </div> -->
+            </ng-template>
+          </mdb-accordion-item>
+        </mdb-accordion>
+  
+        <div class="no-event" *ngIf="eventDetails.length == 0">
+          No existen reservas
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showSpinner" class="overlay">
+    <div class="text-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  

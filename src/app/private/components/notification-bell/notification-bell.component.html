@@ -1,0 +1,17 @@
+<div [matMenuTriggerFor]="notifications">
+  <i class="fas fa-bell fa-xl text-white"></i>
+  <span class="badge rounded-pill badge-notification bg-danger">1</span>
+</div>
+<mat-menu #notifications="matMenu" xPosition="before" class="container">
+  <div class="menu-notifications-container">
+    <button class="menu-item">
+      <div class="d-flex justify-content-around align-items-center gap-5">
+        <div class="d-flex gap-3 align-items-center ">
+          <i class="fas fa-message"></i>
+          <span><b>Title notification</b></span>
+        </div>
+        <span class="ps-3">10:30</span>
+      </div>
+    </button>
+  </div>
+</mat-menu>

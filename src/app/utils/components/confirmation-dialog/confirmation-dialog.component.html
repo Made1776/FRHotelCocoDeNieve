@@ -1,0 +1,36 @@
+<div class="modal-content">
+  <div class="modal-header justify-content-center">
+    <h4 class="modal-title text-center">{{ data.title }}</h4>
+  </div>
+  <!-- <div *ngIf="data.isFormVisible">
+    <div class="modal-body mt-4">
+      <form [formGroup]="daysToDisableForm">
+        <div class="row">
+          <div class="col">
+            <mdb-form-control>
+              <input mdbInput mdbValidate type="number" id="order" class="form-control mb-4" formControlName="order"
+                min="1" max="200" mdbTooltip="Días: 1 - 200" inputValidation="entero" />
+              <label mdbLabel class="form-label" for="order">
+                Días deshabilitados <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+      </form>
+
+      <span *ngIf="daysToDisableForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder
+        continuar llene todos los campos obligatorios (*) </span>
+    </div>
+  </div> -->
+  <div class="modal-body mx-4">
+
+    <div class="action mt-3 mb-2">
+      <button type="button" class="btn btn-danger btn-lg" (click)="onNoClick()">
+        NO
+      </button>
+      <button type="button" class="btn btn-warning btn-lg" (click)="onYesClick()">
+        SÍ
+      </button>
+    </div>
+  </div>
+</div>

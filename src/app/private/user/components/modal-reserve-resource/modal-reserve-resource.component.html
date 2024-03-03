@@ -1,0 +1,181 @@
+<div class="modal-header">
+  <h5 class="modal-title">Recurso: {{resource?.name}}</h5>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="modalRef.close()"
+  ></button>
+</div>
+<div class="modal-body">
+
+  <mdb-carousel [controls]="true">
+    <mdb-carousel-item>
+      <img
+        src="https://mdbcdn.b-cdn.net/img/new/slides/042.webp"
+        class="d-block w-100"
+        alt="..."
+      />
+    </mdb-carousel-item>
+    <mdb-carousel-item>
+      <img
+        src="https://mdbcdn.b-cdn.net/img/new/slides/043.webp"
+        class="d-block w-100"
+        alt="..."
+      />
+    </mdb-carousel-item>
+  </mdb-carousel>
+  <div class="resource-details mt-3">
+    <div class="detail-section">
+      <div class="d-flex justify-content-between align-items-center">
+        <h5 class="detail-title">Descripción</h5>
+        <div class="d-flex gap-2">
+          <div class="availability">
+            <i class="fas fa-users me-1 text-success"></i>
+            <div class="m-0">
+              <b>Capacidad: {{resource?.capacity}}</b>
+            </div>
+          </div>
+          <div class="resource-type">
+            {{resource?.idTypeResource?.name |titlecase}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="detail-content">
+      {{resource?.description
+      ? resource?.description
+      : 'No hay descripción disponible'
+      }}
+    </p>
+
+    <div class="detail-section">
+      <h5 class="detail-title">Ubicación</h5>
+      <div class="detail-content">
+        <i class="fas fa-area-chart me-2"></i>
+        {{resource?.idLocation?.idRegion?.name}}
+      </div>
+      <div class="detail-content">
+        <i class="fas fa-map-marker-alt me-2"></i>
+        {{resource?.idLocation?.address}}
+      </div>
+      <div class="detail-content">
+        <i class="fas fa-building me-2"></i>
+        {{'OFICINA: ' + resource?.idLocation?.place}}
+      </div>
+      <div class="detail-content">
+        <i class="fas fa-table me-2"></i>
+        {{'PISO: ' + resource?.idLocation?.floor}}
+      </div>
+    </div>
+    <div class="detail-section">
+      <hr class="hr">
+      <h5 class="detail-title">Datos de reserva</h5>
+      <div class="inputs-search-container p-4 my-2 bg-grey rounded-1">
+        <form [formGroup]="reservationForm">
+          <div class="row">
+            <div class="col">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  id="date"
+                  class="form-control bg-white"
+                  type="date"
+                  formControlName="date"
+                />
+                <label mdbLabel class="form-label border-0" for="date">
+                  <i class="fas fa-calendar pe-2"></i>
+                  <span>Fecha <span class="text-danger">*</span></span>
+                </label>
+              </mdb-form-control>
+            </div>
+            <div class="col">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  id="time"
+                  class="form-control bg-white"
+                  type="time"
+                  placeholder=""
+                  formControlName="time"
+                />
+                <label mdbLabel class="form-label" for="time">
+                  <i class="fas fa-clock pe-2"></i>
+                  <span>Hora <span class="text-danger">*</span></span>
+                </label>
+              </mdb-form-control>
+            </div>
+          </div>
+          <span class="text-muted">Duración: <span class="text-danger">*</span></span>
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <mdb-form-control>
+                    <input
+                      mdbInput
+                      mdbValidate
+                      min="0"
+                      max="23"
+                      type="number"
+                      id="hours"
+                      class="form-control bg-white"
+                      [appMinValue]="0"
+                      [appMaxValue]="23"
+                      formControlName="hours"
+                    />
+                    <label mdbLabel class="form-label" for="hours">
+                      <span>hh</span>
+                    </label>
+                  </mdb-form-control>
+                </div>
+                <div class="col">
+                  <mdb-form-control>
+                    <select
+                      mdbInput
+                      mdbValidate
+                      class="form-control bg-white"
+                      formControlName="minutes"
+                      id="minutes"
+                    >
+                      <option
+                        *ngFor="let minute of minutes"
+                        [value]="minute"
+                      >
+                        {{minute}}
+                      </option>
+                    </select>
+                    <label mdbLabel class="form-label" for="minutes">
+                      <span>mm</span>
+                    </label>
+                  </mdb-form-control>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div *ngIf="!isSearchDone" class="mt-4 d-flex justify-content-end" >
+            <button
+              class="btn btn-primary"
+              [disabled]="reservationForm.invalid"
+              (click)="onCheckAvailability()"
+            >
+              <i class="fas fa-eye me-2 text-white"></i>
+              Verificar disponibilidad
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button
+    type="button" class="btn btn-warning"
+    [disabled]="!isAvailable"
+    (click)="onReserve()"
+  >Reservar</button>
+</div>

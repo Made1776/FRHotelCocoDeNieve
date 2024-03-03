@@ -1,0 +1,12 @@
+@import 'src/app/private/components/nav/nav.component';
+
+.menu-notifications-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: all 200ms ease;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}

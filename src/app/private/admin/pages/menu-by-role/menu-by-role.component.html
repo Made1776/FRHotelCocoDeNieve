@@ -1,0 +1,86 @@
+<div class="container">
+  <header class="text-center">
+    <h1 class="fw-bolder">Asignación de menús a rol</h1>
+  </header>
+
+<mat-stepper orientation="vertical" linear #stepper>
+  <mat-step [stepControl]="menuRoleForm">
+    <form [formGroup]="menuRoleForm">
+      <ng-template matStepLabel>Seleccionar rol</ng-template>
+
+      <div class="d-flex justify-content-center">
+        <div class="form-group my-3 w-50">
+          <!-- <label for="rol">Seleccione el rol</label> -->
+          <select class="form-select" id="rol" formControlName="rol" (change)="onRolChange($event.target)">
+            <option *ngFor="let rol of listRol" [value]="rol.idRol">{{rol.nombre}}</option>
+          </select> 
+        </div>
+      </div>
+      
+      <div class="text-center">
+        <button matStepperNext class="btn btn-warning btn-md" [disabled]="!menuRoleForm.get('rol')?.value" (click)="onNext()">Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <!-- <mat-step [stepControl]="secondFormGroup" > -->
+  <mat-step>
+    <!-- <form [formGroup]="secondFormGroup"> -->
+      <ng-template matStepLabel>Asignar menús</ng-template>
+
+      <ng-container>
+        <ng-container *ngTemplateOutlet="menus"></ng-container>
+      </ng-container>
+      <div class="actions">
+        <button class="btn btn-danger btn-md" matStepperPrevious >Regresar</button>
+        <button class="btn btn-warning btn-md" (click)="onSave()">Guardar</button>
+      </div>
+    <!-- </form> -->
+  </mat-step>
+  
+</mat-stepper>
+
+
+<ng-template #menus>
+  <div class="col-md-10">
+    Rol Seleccionado:
+    <span class="text-primary">{{ rolName | uppercase}} </span>
+  </div>
+
+  <div class="data-table my-3">
+    <div class="mat-elevation-z8 table-responsive">
+      <table mat-table [dataSource]="dataSource">
+        <!-- assigned-->
+        <ng-container matColumnDef="assigned">
+          <th mat-header-cell *matHeaderCellDef class="text-center">Asignado</th>
+          <td mat-cell *matCellDef="let row;" class="text-center">
+            <input
+              mdbCheckbox
+              class="form-check-input"
+              type="checkbox"
+              [value]="row.idMenu"
+              id="flexCheckChecked"
+              [checked]="isSelected(row.idMenu)"
+              (change)="toggleRowSelection(row.idMenu)"
+            />
+          </td>
+        </ng-container>
+        <!-- menus -->
+        <ng-container matColumnDef="menu">
+          <th mat-header-cell *matHeaderCellDef>Menú</th>
+          <td mat-cell *matCellDef="let row"> {{ row.label | uppercase }} </td>
+        </ng-container>
+        <!-- description -->
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          <td mat-cell *matCellDef="let row"> {{ row.description | uppercase }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      
+    </div>
+  </div>
+</ng-template>
+</div>

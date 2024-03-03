@@ -1,0 +1,56 @@
+<div class="modal-content">
+  <div class="modal-header justify-content-center">
+    <h4 class="modal-title">{{ title }}</h4>
+  </div>
+  <div class="modal-body mx-4">
+    <form [formGroup]="roleForm">
+
+      <mdb-form-control>
+        <input
+          mdbInput
+          mdbValidate
+          type="text"
+          id="rol_name"
+          class="form-control mb-4"
+          formControlName="rol_name"
+        />
+        <label mdbLabel class="form-label" for="rol_name">
+          Nombre del rol <span class="text-danger">*</span>
+        </label>
+      </mdb-form-control>
+
+      <mdb-form-control>
+        <input
+          mdbInput
+          mdbValidate
+          type="text"
+          id="description"
+          class="form-control mb-4"
+          formControlName="description"
+        />
+        <label mdbLabel class="form-label" for="description">
+          Descripción del rol <span class="text-danger">*</span>
+        </label>
+      </mdb-form-control>
+
+      <span *ngIf="roleForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+      <div class="action mt-2 mb-2">
+        <button type="button" class="btn btn-danger btn-lg" (click)="onClose()">
+          CANCELAR
+        </button>
+        <button
+          type="button"
+          class="btn btn-warning btn-lg"
+          [disabled]="roleForm.invalid"
+          (click)="onSave()"
+        >
+          GUARDAR
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+

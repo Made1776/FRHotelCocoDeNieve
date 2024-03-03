@@ -1,0 +1,213 @@
+<!-- <app-boton-volver></app-boton-volver> -->
+
+<!-- Título de componente-->
+<header class="text-center mb-4">
+  <h1 class="fw-bolder">Menús</h1>
+</header>
+
+<!-- Contenido principal-->
+<div class="row justify-content">
+  <div class="col-12">
+    <!------------------------------
+        Tabla Menús de primer nivel
+    ------------------------------->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-2">
+          <!-- Agregar -->
+          <button class="btn btn-warning mb-3" (click)="onCreate(1)">
+            <i class="fa fa-plus fa-lg" style="color: white"></i> &nbsp;Agregar
+          </button>
+        </div>
+        <div class="col-md-10">
+          Menús de primer nivel
+          <i
+            class="fa-solid fa-circle-info text-primary"
+            mdbTooltip="Menús de la sección lateral izquierda de navegación. Es obligatorio incluir la etiqueta."
+          ></i>
+        </div>
+      </div>
+      <div
+        class="alert alert-info"
+        role="alert"
+        *ngIf="listFirstLevelMenu?.length == 0"
+      >
+        <i class="fa-solid fa-circle-info me-2"></i>
+        No existen menús de primer nivel
+      </div>
+
+      <ng-container *ngIf="listFirstLevelMenu?.length != 0">
+        <ng-container *ngTemplateOutlet="firstLevelTable"></ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="isFirstLevelSelected">
+        <ng-container *ngTemplateOutlet="secondLevelTable"></ng-container>
+      </ng-container>
+    </div>
+
+    <!-----------Main table---First Level Menu-------------->
+    <ng-template #firstLevelTable>
+      <div class="data-table mb-5">
+        <div class="mat-elevation-z8 table-responsive">
+          <table mat-table [dataSource]="firstTable">
+            <!-- selection -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>Sel.</th>
+              <td mat-cell *matCellDef="let row">
+                <input
+                  type="radio"
+                  name="selection"
+                  [checked]="selectedRow == row"
+                  (click)="onSelectRow(row, 1)"
+                />
+              </td>
+            </ng-container>
+
+            <!-- label -->
+            <ng-container matColumnDef="label">
+              <th mat-header-cell *matHeaderCellDef>Etiqueta</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                {{ row.label | uppercase }}
+              </td>
+            </ng-container>
+
+            <!-- order -->
+            <ng-container matColumnDef="order">
+              <th mat-header-cell *matHeaderCellDef>Orden</th>
+              <td mat-cell *matCellDef="let row">{{ row.order }}</td>
+            </ng-container>
+
+            <!-- description -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Descripción</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                {{ row.description }}
+              </td>
+            </ng-container>
+            <!-- icon -->
+            <ng-container matColumnDef="icon">
+              <th mat-header-cell *matHeaderCellDef>Ícono</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                <i class="fas pe-3" [ngClass]="row.icon"></i>
+              </td>
+            </ng-container>
+
+            <!-- actions -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef class="text-center">
+                Opciones
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <div class="actions">
+                  <i
+                    class="far fa-edit fa-lg"
+                    title="Editar menú de primer nivel"
+                    (click)="onEdit(1, row)"
+                  ></i>
+                  <i
+                    class="far fa-trash-alt fa-lg"
+                    title="Eliminar menú de primer nivel"
+                    (click)="onDelete(1, row)"
+                  ></i>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="firstTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: firstTableColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+    <!-----------Main table---First Level Menu-------------->
+
+    <!------------------Second Level Menu------------------->
+    <ng-template #secondLevelTable>
+      <div class="row mt-2">
+        <div class="col-md-2">
+          <!-- Agregar -->
+          <button class="btn btn-warning mb-3" (click)="onCreate(2)">
+            <i class="fa fa-plus fa-lg" style="color: white"></i> &nbsp;Agregar
+          </button>
+        </div>
+        <div class="col-md-10">
+          Menús de segundo nivel del menú
+          <span class="text-primary">{{ parentMenu.label }} </span>
+          <i
+            class="fa-solid fa-circle-info text-primary"
+            mdbTooltip="Permiten el acceso a las páginas. Es obligatorio incluir la etiqueta y la ruta."
+          ></i>
+        </div>
+      </div>
+
+      <div
+        class="alert alert-info"
+        role="alert"
+        *ngIf="listSecondLevelMenu?.length == 0"
+      >
+        <i class="fa-solid fa-circle-info me-2"></i>
+        No existen menús de segundo nivel para el menú seleccionado
+      </div>
+
+      <div class="data-table" *ngIf="listSecondLevelMenu?.length != 0">
+        <div class="mat-elevation-z8 table-responsive">
+          <table mat-table [dataSource]="secondTable">
+            <!-- label -->
+            <ng-container matColumnDef="label">
+              <th mat-header-cell *matHeaderCellDef>Etiqueta</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                {{ row.label | uppercase }}
+              </td>
+            </ng-container>
+
+            <!-- order -->
+            <ng-container matColumnDef="order">
+              <th mat-header-cell *matHeaderCellDef>Orden</th>
+              <td mat-cell *matCellDef="let row">{{ row.order }}</td>
+            </ng-container>
+
+            <!-- description -->
+            <ng-container matColumnDef="description">
+              <th mat-header-cell *matHeaderCellDef>Descripción</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                {{ row.description }}
+              </td>
+            </ng-container>
+            <!-- icon -->
+            <ng-container matColumnDef="icon">
+              <th mat-header-cell *matHeaderCellDef>Ícono</th>
+              <td mat-cell *matCellDef="let row" class="text-start">
+                <i class="fas pe-3" [ngClass]="row.icon"></i>
+              </td>
+            </ng-container>
+
+            <!-- actions -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef class="text-center">
+                Opciones
+              </th>
+              <td mat-cell *matCellDef="let row; let i = index">
+                <div class="actions">
+                  <i
+                    class="far fa-edit fa-lg"
+                    title="Editar menú de segundo nivel"
+                    (click)="onEdit(2, row)"
+                  ></i>
+                  <i
+                    class="far fa-trash-alt fa-lg"
+                    title="Eliminar menú de segundo nivel"
+                    (click)="onDelete(2, row)"
+                  ></i>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="secondTableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: secondTableColumns"></tr>
+          </table>
+        </div>
+      </div>
+    </ng-template>
+    <!------------------Second Level Menu------------------->
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="nav shadow-3">
+  <button
+    (click)="toggleMenu()"
+    class="btn btn-floating shadow-0 " aria-label=" menu icon">
+    <i class="fas fa-xl fa-bars text-white"></i>
+  </button>
+
+  <div class="d-flex gap-5 align-items-center">
+    <div class="notification-bell">
+      <!-- <app-notification-bell></app-notification-bell> -->
+    </div>
+    <div class="d-flex gap-3 align-items-center">
+      <div class="text-white">¡Hola {{ user?.personalData?.name | titlecase}} !</div>
+      <div>
+        <button class="btn btn-floating shadow-0" [matMenuTriggerFor]="menu">
+          <img src="assets/img/images.jpg" [style.width.px]="35" class="rounded-circle" alt=""/>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before" class="container">
+          <button class="menu-item" (click)="onProfile()">
+            <i class="fas fa-cog pe-2"></i>
+            Configurar cuenta
+          </button>
+          <button class="menu-item" (click)="onLogout()">
+            <i class="fas fa-right-from-bracket pe-2"></i>
+            Cerrar sesión
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</div>

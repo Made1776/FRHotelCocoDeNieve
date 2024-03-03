@@ -1,0 +1,440 @@
+$primary-clr: #ffad6e;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e231dc;
+}
+.container{
+    position: relative;
+    width: 100%;
+    min-height: 850px;
+    margin: 0 auto;
+    padding: 5px;
+    color: #fff;
+    display: flex;
+    border-radius: 10px;
+    background-color: #352815;
+}
+.left{
+    width: 60%;
+    padding: 20px;
+}
+.calendar{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #03095f;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.calendar::before, .calendar::after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    width: 12px;
+    height: 97%;
+    border-radius: 0 5px 5px 0;
+    background-color: #d3d5d6d7;
+    transform: translateY(-50%);
+}
+.calendar::before{
+    height: 94%;
+    left: calc(100% + 12px);
+    background-color: rgb(153, 153, 153);
+}
+.calendar .month {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.calendar .month .prev, .calendar .month .next{
+    cursor: pointer;
+}
+.calendar .month .prev:hover .calendar .month .next:hover{
+    color: $primary-clr;
+}
+.calendar .weekdays{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+.calendar .weekdays div{
+    width: 14.28%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.calendar .days{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.calendar .days .day{
+    width: 14.28%;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: $primary-clr;
+    border: 1px solid #f5f5f5;
+}
+.calendar .day:not(.prev-date, .next-date):hover{
+    background-color: $primary-clr;
+    color: #fff;
+}
+.calendar .days .prev-date, .calendar .days .next-date{
+    color: #b3b3b3;
+}
+.calendar .days .active{
+    position: relative;
+    font-size: 2rem;
+    color: #fff;
+    background-color: $primary-clr;
+}
+.calendar .days .active::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px 2px $primary-clr;
+}
+.calendar .days .today{
+    font-size: 2rem;
+}
+.calendar .days .event{
+    position: relative;
+}
+.calendar .days .event::after{
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 75%;
+    height: 6px;
+    border-radius: 30px;
+    transform: translateX(-50%);
+    background-color: $primary-clr;
+}
+.calendar .day.event:hover::after{
+    background-color: #fff;
+}
+.calendar .day.active.event::after{
+    background-color: #fff;
+    bottom: 20%;
+}
+.calendar .day.active.event {
+    padding-bottom: 10px;
+}
+.calendar .goto-today{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+    color: $primary-clr;
+}
+.calendar .goto-today .goto{
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    border: 1px solid $primary-clr;
+}
+.calendar .goto-today .goto input{
+    width: 100%;
+    height: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    padding: 0 20px;
+    color: $primary-clr;
+}
+.calendar .goto-today button{
+    padding: 5px 10px;
+    border: 1px solid $primary-clr;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    color: $primary-clr;
+}
+.calendar .goto-today button:hover{
+    background-color: $primary-clr;
+    color: #fff;
+}
+.calendar .goto-today .go-to button{
+    border: none;
+    border-left: 1px solid $primary-clr;
+    border-radius: 0;
+}
+.container .right{
+    position: relative;
+    width: 40%;
+    min-height: 100%;
+    padding: 20px 0;
+}
+.right .today-date{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    padding-left: 70px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    text-transform: capitalize;
+}
+.today-date .event-day{
+    font-size: 2rem;
+    font-weight: 500;
+}
+.today-date .event-date{
+    font-size: 1rem;
+    font-weight: 400;
+    color: #c4bfb9;
+}
+.events {
+    width: 100%;
+    height: 100%;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+}
+.events .event {
+    cursor: pointer;
+    background: linear-gradient(90deg, #655748, transparent);
+}
+.events .event:nth-child(even){
+    background: transparent;
+}
+.events .event:hover{
+    background: linear-gradient(90deg, #96765d, transparent);
+}
+.events .event .title{
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+}
+.events .event .title .event-title{
+    font-size: 1rem;
+    font-weight: 400;
+    margin-left: 20px;
+    color: #fff;
+}
+.events .event .title i{
+    color: $primary-clr;
+    font-size: 0.5rem;
+}
+.events .event:hover .title i, .events .event:hover .event-time{
+    color: #fff;
+}
+.events .event .event-time{
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: #c4bfb9;
+    margin-left: 15px;
+    pointer-events: none;
+}
+.events .event .event-sub-title{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fffbe1;
+    text-align: center;
+}
+.events .event .event-price{
+    font-size: 1.1rem;
+    text-align: right;
+    margin: 5px 0px 5px 0px;
+    font-style: italic;
+}
+.events .event .event-typeResource{
+    font-size: 0.8rem;
+    text-align: center;
+}
+.events .event .event-label{
+    float: left;
+    margin: 5px 5px 5px 0px;
+    font-weight: bold;
+    color: #ffe8ca;
+}
+.events .event .event-capacity{
+    font-size: 1.2rem;
+    text-align: center;
+    float: left;
+    margin-top: 3px;
+}
+.events .event .event-data{
+    font-size: 0.9rem;
+    margin-top: 6px;
+}
+.events .event .event-time-duration{
+    font-size: 0.9rem;
+    float: right;
+    margin-top: 6px;
+}
+.events .event .event-address{
+    font-size: 0.8rem;
+    margin-top: 8px;
+}
+.events .event .event-floor{
+    font-size: 1rem;
+    margin-top: 6px;
+}
+.events .no-event {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #c4bfb9;
+}
+.events .acciones{
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.events .acciones button{
+    padding: 5px 10px;
+    border: 1px solid #f1e3ff;
+    background-color: transparent;
+    cursor: pointer;
+    color: #f1e3ff;
+}
+.events .acciones button:hover{
+    background-color: $primary-clr;
+    color: #fff;
+}
+::ng-deep .accordion-button::after {
+    background-image: none;
+}
+::ng-deep .accordion-button:hover::after {
+    // margin-left: 15px;
+    color: $primary-clr;
+    background-image: url('../../../../../assets/icons/down_arrow.png');
+}
+::ng-deep .accordion-button:not(.collapsed)::after {
+    background-image: url('../../../../../assets/icons/down_arrow.png');
+    transform: url('../../../../../assets/icons/up_arrow.png');
+}
+::ng-deep .accordion-borderless .accordion-item .accordion-button:not(.collapsed) {
+    background: linear-gradient(90deg, #7b4c07, transparent);;
+    color: #241d3e;
+    box-shadow: 0px 1px 0px 0px white;
+}
+::ng-deep .accordion-body {
+    color: white;
+    font-weight: 0;
+}
+
+@media (max-width : 1000px){
+    body{
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .container{
+        flex-direction: column;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+    .container .left, .container .right{
+        width: 100%;
+        padding: 20 0;
+        height: 100%;
+    }
+    .calendar::after, .calendar::before{
+        top: 100%;
+        left: 50%;
+        width: 97%;
+        height: 12px;
+        border-radius: 0 0 5px 5px;
+        transform: translateX(-50%);
+    }
+    .calendar::before{
+        width: 94%;
+        top: calc(100% + 12px);
+    }
+    .events{
+        padding-bottom: 340px;
+    }
+}
+@media (max-width : 500px){
+    .container .month{
+        height: 75px;
+    }
+    .calendar .weekdays{
+        height: 50px;
+    }
+    .calendar .days .day{
+        height: 40px;
+        font-size: 0.8rem;
+    }
+    .calendar .days .day.active, .calendar .days .day.today{
+        font-size: 1rem;
+    }
+    .right .today-date{
+        padding: 20px;
+    }
+
+}
+//spinner
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .spinner {
+    color: #ffffff;
+  }

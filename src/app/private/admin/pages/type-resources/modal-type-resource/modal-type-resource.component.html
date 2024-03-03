@@ -1,0 +1,67 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header justify-content-center">
+      <h4 class="modal-title">{{ title }}</h4>
+    </div>
+    <div class="modal-body mt-4">
+      <form [formGroup]="resourceTypeForm">
+        <div class="row">
+          <!--name type resource-->
+          <div class="col">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="text"
+                id="nameTypeResource"
+                class="form-control mb-4"
+                formControlName="nameTypeResource"
+              />
+              <label mdbLabel class="form-label" for="nameTypeResource">
+                Nombre del tipo de recurso
+                <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+          <!-- Horas de anticipación para el tipo de recurso -->
+          <div class="col">
+            <mdb-form-control>
+              <select
+                mdbInput
+                mdbValidate
+                id="hoursTypeResource"
+                formControlName="hoursTypeResource"
+                class="form-control mb-4">
+                <option value="12">12</option>
+                <option value="24">24</option>
+                <option value="36">36</option>
+                <option value="48">48</option>
+                <option value="72">72</option>
+              </select>
+              <label mdbLabel class="form-label" for="hoursTypeResource">
+                No. de Horas de anticipación
+                <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+          </div>
+        </div>
+      </form>
+
+      <span *ngIf="resourceTypeForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger btn-lg" (click)="close()">
+        CANCELAR
+      </button>
+      <button
+        type="button"
+        class="btn btn-warning btn-lg"
+        [disabled]="resourceTypeForm.invalid"
+        (click)="save()"
+      >
+        GUARDAR
+      </button>
+    </div>
+  </div>
+</div>

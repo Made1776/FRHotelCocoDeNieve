@@ -1,0 +1,75 @@
+<div class="container">
+    <header class="text-center">
+        <h1 class="fw-bolder">Gestión de usuarios</h1>
+    </header>
+
+    <div class="data-table">
+
+      <mdb-form-control class="search-input mt-5">
+        <input
+          mdbInput
+          type="text"
+          id="search"
+          class="form-control"
+          (keyup)="applyFilter($event)"
+          placeholder="Ej. Alejandra"
+          #input
+        />
+        <label mdbLabel class="form-label" for="search">
+          Buscar usuario por nombres, apellidos o correo
+        </label>
+      </mdb-form-control>
+
+          <div class="mat-elevation-z8 table-responsive">
+            <table mat-table [dataSource]="dataSource" matSort>
+          
+              <!-- name -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombres </th>
+                <td mat-cell *matCellDef="let row"> {{row.personalData.name | uppercase}} </td>
+              </ng-container>
+
+              <!-- lastname -->
+              <ng-container matColumnDef="lastname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+                <td mat-cell *matCellDef="let row"> {{row.personalData.lastname | uppercase}} </td>
+              </ng-container>
+
+              <!-- email -->
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Correo Electrónico </th>
+                <td mat-cell *matCellDef="let row"> {{row.personalData.email }} </td>
+              </ng-container>
+
+              <!-- status -->
+              <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+                <td mat-cell *matCellDef="let row"> {{row.active ? "HABILITADO" : "DESHABILITADO" }} </td>
+              </ng-container>
+            
+            <!-- actions -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef class="text-center"> Opciones </th>
+                <td mat-cell *matCellDef="let row">
+                <div class="actions">
+                    <i class="fas fa-check fa-lg" title="Habilitar Usuario" (click)="onEnable(row)" *ngIf="!row.active"></i>
+                    <i class="fas fa-user-slash fa-lg" title="Deshabilitar Usuario" (click)="onDisable(row)" *ngIf="row.active"></i>
+                    <!-- <i class="fas fa-trash fa-lg" title="Eliminar" (click)="onDelete(row)"></i> -->
+                </div>
+                </td>
+            </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          
+              <!-- Row shown when there is no matching data. -->
+              <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No existe solicitud "{{input.value}}"</td>
+              </tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of user-role"></mat-paginator>
+          </div>
+          
+  </div>
+</div>

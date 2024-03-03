@@ -1,0 +1,95 @@
+<div class="main-container">
+  <div class="main-container__assets">
+    <div class="logo-container">
+      
+    </div>
+    <img src="assets/img/paco.png"
+         alt="Paco"
+    >
+  </div>
+  <div class="main-container__form">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center pb-4">¡Hola! Bienvenido</h2>
+        <div
+          class="text-muted pb-3"
+          role="alert"
+          *ngIf="userTypeField?.value == ''"
+        >
+          <i class="fa-solid fa-circle-info me-2"></i>
+          Seleccione el tipo de usuario para continuar
+        </div>
+        <form [formGroup]="userForm">
+          <mat-form-field appearance="outline">
+            <mat-label>
+              Tipo de Usuario
+              <span class="text-danger">*</span>
+            </mat-label>
+            <mat-select formControlName="userType" id="userType">
+              <mat-option value="Administrador">Administrador</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="userTypeField?.value == 'Usuario'" appearance="outline">
+            <mat-label>
+              Región
+              <span class="text-danger">*</span>
+            </mat-label>
+            <mat-select id="region" formControlName="region">
+              <mat-option
+                *ngFor="let region of regions"
+                [value]="region"
+              >
+                {{ region?.name | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="userTypeField?.value != ''">
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="email"
+                id="mail"
+                class="form-control mb-4"
+                formControlName="mail"
+              />
+              <label mdbLabel class="form-label" for="mail">
+                Correo Electr&oacute;nico
+                <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+            <mdb-form-control>
+              <input
+                mdbInput
+                mdbValidate
+                type="password"
+                id="password"
+                class="form-control mb-4"
+                formControlName="password"
+              />
+              <label mdbLabel class="form-label" for="password">
+                Contrase&ntilde;a
+                <span class="text-danger">*</span>
+              </label>
+            </mdb-form-control>
+
+            <div class="row px-2 pt-3">
+              <button
+                type="button"
+                class="btn btn-warning"
+                (click)="onLogin()"
+                [disabled]="userForm.invalid"
+              >
+                Iniciar Sesi&oacute;n
+              </button>
+              <span *ngIf="userForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+</div>

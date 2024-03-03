@@ -1,0 +1,85 @@
+<div class="main-container">
+  <div class="main-container__assets">
+    <div class="logo-container">
+      <img
+        class="logo"
+        alt="Netbookin"
+        src="assets/img/logo-netbookin.svg">
+
+    </div>
+    <img src="assets/img/paco.png"
+         alt="Paco">
+  </div>
+  <div class="main-container__form">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center pb-4">Solicitud de acceso</h2>
+        <form [formGroup]="requestForm">
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="name"
+              class="form-control mb-4"
+              formControlName="name"
+            />
+            <label mdbLabel class="form-label" for="name">
+              Nombre
+              <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="lastname"
+              class="form-control mb-4"
+              formControlName="lastname"
+            />
+            <label mdbLabel class="form-label" for="lastname">
+              Apellido
+              <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="email"
+              id="mail"
+              class="form-control mb-4"
+              formControlName="mail"
+            />
+            <label mdbLabel class="form-label" for="mail">
+              Correo Electr&oacute;nico
+              <span class="text-danger">*</span>
+            </label>
+            <mdb-error
+              *ngIf="requestForm.get('mail')?.hasError('pattern') && requestForm.get('mail')?.touched"
+              class="text-danger"
+            >
+              <i class="fa fa-exclamation-circle pe-1 text-danger"></i>
+              El correo electr&oacute;nico no es v&aacute;lido
+            </mdb-error>
+          </mdb-form-control>
+          <div class="row px-2 pt-3">
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="onSendRequest()"
+              [disabled]="requestForm.invalid"
+            >
+              Enviar solicitud
+            </button>
+            <span *ngIf="requestForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,171 @@
+<form [formGroup]="searchForm">
+  <div class="inputs-search-container px-4 py-4 my-2 bg-grey rounded-1">
+    <div class="d-flex flex-column-reverse">
+      <mdb-form-control [style.width.px]="200">
+        <input
+          mdbInput
+          mdbValidate
+          id="date"
+          class="form-control bg-white"
+          type="date"
+          formControlName="date"
+        />
+        <label mdbLabel class="form-label border-0" for="date">
+          <i class="fas fa-calendar pe-2"></i>
+          <span>Fecha <span class="text-danger">*</span></span>
+        </label>
+      </mdb-form-control>
+    </div>
+    <div class="d-flex flex-column-reverse">
+      <mdb-form-control [style.width.px]="200">
+        <input
+          mdbInput
+          mdbValidate
+          id="time"
+          class="form-control bg-white"
+          type="time"
+          placeholder=""
+          formControlName="time"
+        />
+        <label mdbLabel class="form-label" for="time">
+          <i class="fas fa-clock pe-2"></i>
+          <span>Hora <span class="text-danger">*</span></span>
+        </label>
+      </mdb-form-control>
+    </div>
+    <div>
+      <span class="text-muted">Duración: <span class="text-danger">*</span></span>
+      <div class="d-flex gap-2">
+        <mdb-form-control>
+          <input
+            [style.width.px]="70"
+            mdbInput
+            mdbValidate
+            min="0"
+            max="23"
+            type="number"
+            id="hours"
+            class="form-control bg-white"
+            [appMinValue]="0"
+            [appMaxValue]="23"
+            formControlName="hours"
+          />
+          <label mdbLabel class="form-label" for="hours">
+            <span>hh</span>
+          </label>
+        </mdb-form-control>
+        <div class="d-flex flex-column-reverse">
+          <mdb-form-control>
+            <select
+              mdbInput
+              mdbValidate
+              [style.width.px]="70"
+              class="form-control bg-white"
+              formControlName="minutes"
+              id="minutes"
+            >
+              <option
+                *ngFor="let minute of minutes"
+                [value]="minute"
+              >
+                {{minute}}
+              </option>
+            </select>
+            <label mdbLabel class="form-label" for="minutes">
+              <span>mm</span>
+            </label>
+          </mdb-form-control>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column-reverse">
+      <mdb-form-control [style.width.px]="200">
+        <input
+          mdbInput
+          mdbValidate
+          id="capacidad"
+          class="form-control bg-white"
+          type="number"
+          min="1"
+          max="100"
+          [appMinValue]="1"
+          [appMaxValue]="100"
+          formControlName="capacity"
+        />
+        <label mdbLabel class="form-label" for="capacidad">
+          <i class="fas fa-people-group pe-2"></i>
+          <span>Capacidad <span class="text-danger">*</span></span>
+        </label>
+      </mdb-form-control>
+    </div>
+    <div class="d-flex flex-column-reverse">
+      <button
+        class="btn btn-warning"
+        [disabled]="searchForm.invalid"
+        (click)="onSearchResource()"
+      >
+        <i class="fas fa-magnifying-glass fa-lg text-white pe-2"></i>
+        Buscar
+      </button>
+    </div>
+  </div>
+</form>
+<div
+  class="d-flex justify-content-end"
+  *ngIf="searchForm.invalid"
+>
+  <span class="text-muted fs-6"> <i class="fas fa-info-circle text-warning"> </i> Para realizar un búsqueda, llenar los campos obligatorios (*)</span>
+</div>
+<div *ngIf="resourcesFilteredSearch.length > 0">
+  <button
+    class="btn btn-warning mt-3"
+    (click)="onClearSearch()"
+  >
+    <i class="fas fa-times text-white pe-2"></i>
+    Limpiar búsqueda
+  </button>
+</div>
+
+<div class="d-flex justify-content-between py-5">
+  <div class="d-flex gap-4 text-muted">
+    <div>
+      <i class="fas fa-lg fa-filter pe-2"></i>
+      <span>Filtrar por:</span>
+    </div>
+    <div>
+      <div
+        *ngFor="let type of resourceTypes"
+        class="form-check form-check-inline pe-2">
+        <input
+          mdbCheckbox
+          class="form-check-input"
+          type="checkbox"
+          [value]="type"
+          (click)="onToggleFilterResource(type)"
+          [checked]="type.checked"
+        />
+        <label class="form-check-label">
+          <i class="{{type.icon}} pe-2"></i>
+          <span>{{type.name | titlecase}}</span>
+        </label>
+      </div>
+
+    </div>
+  </div>
+<!--  <div>-->
+<!--    <button-->
+<!--      class="btn btn-floating shadow-0 me-3"-->
+<!--    >-->
+<!--      <i class="fas fa-2xl fa-list"></i>-->
+<!--    </button>-->
+<!--    <button-->
+<!--      class="btn btn-floating shadow-0"-->
+<!--    >-->
+<!--      <i class="fas fa-2xl fa-grip-vertical"></i>-->
+<!--    </button>-->
+<!--  </div>-->
+</div>
+
+<div class="rounded-1 bg-grey rounded-1 p-5">
+  <app-resources [resources]="leakedResources"></app-resources>
+</div>

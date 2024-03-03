@@ -1,0 +1,165 @@
+<div class="main-container">
+  <div class="main-container__assets">
+    <div class="logo-container">
+      <img
+        class="logo"
+        alt="Netbookin"
+        src="assets/img/logo-netbookin.svg">
+
+    </div>
+    <img src="assets/img/paco.png"
+         alt="Paco">
+  </div>
+  <div class="main-container__form">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="text-center pb-4">Registro de usuario</h2>
+        <form [formGroup]="registrationForm">
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="name"
+              class="form-control mb-4"
+              formControlName="name"
+            />
+            <label mdbLabel class="form-label" for="name">
+              Nombres <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="lastname"
+              class="form-control mb-4"
+              formControlName="lastname"
+            />
+            <label mdbLabel class="form-label" for="lastname">
+              Apellidos <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="email"
+              id="mail"
+              class="form-control mb-4"
+              formControlName="mail"
+            />
+            <label mdbLabel class="form-label" for="mail">
+              Correo Electr&oacute;nico <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="tel"
+              id="cellphone"
+              class="form-control mb-4"
+              formControlName="cellphone"
+            />
+            <label mdbLabel class="form-label" for="cellphone">
+              Teléfono <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="tel"
+              id="address"
+              class="form-control mb-4"
+              formControlName="address"
+            />
+            <label mdbLabel class="form-label" for="address">
+              Dirección <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="enterprise"
+              class="form-control mb-3"
+              formControlName="enterprise"
+            />
+            <label mdbLabel class="form-label" for="enterprise">
+              Empresa <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <mdb-form-control>
+            <input
+              mdbInput
+              mdbValidate
+              type="text"
+              id="role"
+              class="form-control mb-3"
+              formControlName="role"
+            />
+            <label mdbLabel class="form-label" for="role">
+              Cargo <span class="text-danger">*</span>
+            </label>
+          </mdb-form-control>
+          <div class="row">
+            <div class="col-6">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  type="password"
+                  id="password"
+                  class="form-control mb-3"
+                  formControlName="password"
+                />
+                <label mdbLabel class="form-label" for="password">
+                  Contraseña <span class="text-danger">*</span>
+                </label>
+              </mdb-form-control>
+            </div>
+            <div class="col-6">
+              <mdb-form-control>
+                <input
+                  mdbInput
+                  mdbValidate
+                  type="password"
+                  id="passwordConfirm"
+                  class="form-control mb-3"
+                  formControlName="passwordConfirm"
+                />
+                <label mdbLabel class="form-label" for="passwordConfirm">
+                  Confirmar Contraseña <span class="text-danger">*</span>
+                </label>
+              </mdb-form-control>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              registrationForm?.hasError('invalid_passwords') &&
+        (registrationForm?.get('passwordConfirm')?.touched || registrationForm?.get('passwordConfirm')?.dirty)"
+          >
+            <span class="text-danger"><i class="fas fa-info-circle text-danger"></i> Las contraseñas no coinciden</span>
+          </div>
+
+          <div class="row px-2 pt-3">
+            <button
+              type="button"
+              class="btn btn-warning"
+              (click)="onOpenModalTermsAndRef()"
+              [disabled]="registrationForm.invalid"
+            >
+              Continuar
+            </button>
+            <span *ngIf="registrationForm.invalid" class="text-muted text-center pt-3" [style.font-size.px]="10"> Para poder continuar llene todos los campos obligatorios (*) </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
